@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
@@ -14,9 +15,9 @@ namespace DataAccess.Concrete.InMemory
         {
             _cars = new List<Car>
             {
-                new Car{CarId = 1, BrandId = 1, ColorId = 4, ModelYear = 2010, DailyPrice = 400, Description="Eski Ama Bakımlı"},
-                new Car{CarId = 2, BrandId = 4, ColorId = 5, ModelYear = 2016, DailyPrice = 500, Description="Orta sınıf bir araç"},
-                new Car{CarId = 3, BrandId = 1, ColorId = 8, ModelYear = 2020, DailyPrice = 400, Description="Son Teknoloji ve Yüksek Konfor"}
+                new Car{CarId = 1, BrandId = 1, ColorId = 4, ModelYear = 2010, DailyPrice = 400, CarDescription="Eski Ama Bakımlı"},
+                new Car{CarId = 2, BrandId = 4, ColorId = 5, ModelYear = 2016, DailyPrice = 500, CarDescription="Orta sınıf bir araç"},
+                new Car{CarId = 3, BrandId = 1, ColorId = 8, ModelYear = 2020, DailyPrice = 400, CarDescription="Son Teknoloji ve Yüksek Konfor"}
             };
         }
 
@@ -36,14 +37,14 @@ namespace DataAccess.Concrete.InMemory
             return _cars;
         }
 
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> GetByBrandId(int brandId)
         {
             return _cars.Where(c => c.BrandId == brandId).ToList();
-        }
-
-        public Car GetById(int carId)
-        {
-            return _cars.FirstOrDefault(c => c.CarId == carId);
         }
 
         public void Update(Car car)
@@ -54,7 +55,7 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.ColorId = car.ColorId;
             carToUpdate.ModelYear = car.ModelYear;
             carToUpdate.DailyPrice = car.DailyPrice;
-            carToUpdate.Description = car.Description;
+            carToUpdate.CarDescription = car.CarDescription;
         }
     }
 }
