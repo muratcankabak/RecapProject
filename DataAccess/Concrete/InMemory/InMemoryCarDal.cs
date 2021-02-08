@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal : IEntityRepository<Car>
     {
         List<Car> _cars;
         public InMemoryCarDal()
@@ -32,6 +33,11 @@ namespace DataAccess.Concrete.InMemory
             _cars.Remove(carToDelete);
         }
 
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> GetAll()
         {
             return _cars;
@@ -45,6 +51,11 @@ namespace DataAccess.Concrete.InMemory
         public List<Car> GetByBrandId(int brandId)
         {
             return _cars.Where(c => c.BrandId == brandId).ToList();
+        }
+
+        public Car GetById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Car car)

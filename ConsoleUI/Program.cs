@@ -11,6 +11,24 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //AddTestWithoutCore();
+            //BrandTest();
+            CarManager carManager = new CarManager(new EfCarDal());
+            var car = carManager.GetById(3);
+            Console.WriteLine(car.CarId +" "+ car.BrandName +" "+ car.ModelName);
+        }
+
+        private static void BrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.BrandName);
+            }
+        }
+
+        private static void AddTestWithoutCore()
+        {
             IBrandService brandManager = new BrandManager(new EfBrandDal());
             ICarService carManager = new CarManager(new EfCarDal());
             IColorService colorManager = new ColorManager(new EfColorDal());
