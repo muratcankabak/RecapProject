@@ -16,7 +16,18 @@ namespace ConsoleUI
             //BrandTest();
             //ColorTest();
             //CarTest();
+            CarsByDto();
         }
+
+        private static void CarsByDto()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine(car.BrandName + " => " + car.ModelName + " => " + car.ColorName + " => " + car.Origin + " => " + car.DailyPrice);
+            }
+        }
+
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
