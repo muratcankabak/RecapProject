@@ -22,7 +22,8 @@ namespace ConsoleUI
         private static void CarsByDto()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.BrandName + " => " + car.ModelName + " => " + car.ColorName + " => " + car.Origin + " => " + car.DailyPrice);
             }
@@ -33,8 +34,8 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
 
             //GetAll
-
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.BrandName + " " + car.ModelName);
             }
@@ -56,75 +57,77 @@ namespace ConsoleUI
             //    DailyPrice = 600
             //});
 
-            //Update
+            //    //Update
 
-            //var carToUpdate = carManager.GetById(10);
-            //carToUpdate.ModelName = "3 ";
-            //carManager.Update(carToUpdate);
-            //foreach (var car in carManager.GetAll())
-            //{
-            //    Console.WriteLine(car.BrandName + " " + car.ModelYear);
-            //}
+            //    //var carToUpdate = carManager.GetById(10);
+            //    //carToUpdate.ModelName = "3 ";
+            //    //carManager.Update(carToUpdate);
+            //    //foreach (var car in carManager.GetAll())
+            //    //{
+            //    //    Console.WriteLine(car.BrandName + " " + car.ModelYear);
+            //    //}
 
-            //Delete
+            //    //Delete
 
-            //carManager.Delete(carManager.GetById(9));
+            //    //carManager.Delete(carManager.GetById(9));
         }
         private static void ColorTest()
-        {
-            //GetAll
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
             {
-                Console.WriteLine(color.ColorId + " " + color.ColorName);
-            }
+                //GetAll
+                ColorManager colorManager = new ColorManager(new EfColorDal());
+            var result = colorManager.GetAll();
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.ColorId + " " + color.ColorName);
+                }
 
-            //GetById
+            //    //GetById
 
-            //var colorById = colorManager.GetById(2);
-            //Console.WriteLine(colorById.ColorId + " " + colorById.ColorName);
+            //    //var colorById = colorManager.GetById(2);
+            //    //Console.WriteLine(colorById.ColorId + " " + colorById.ColorName);
 
-            //Add
-            //foreach (var color in colorManager.GetAll())
-            //{
-            //    Console.WriteLine(color.ColorName);
-            //}
-            //Console.WriteLine("****** Ekleme Sonrası ******");
-            //colorManager.Add(new Color
-            //{
-            //    ColorName = "Yeşil"
-            //});
-            //foreach (var color in colorManager.GetAll())
-            //{
-            //    Console.WriteLine(color.ColorName);
-            //}
+            //    //Add
+            //    //foreach (var color in colorManager.GetAll())
+            //    //{
+            //    //    Console.WriteLine(color.ColorName);
+            //    //}
+            //    //Console.WriteLine("****** Ekleme Sonrası ******");
+            //    //colorManager.Add(new Color
+            //    //{
+            //    //    ColorName = "Yeşil"
+            //    //});
+            //    //foreach (var color in colorManager.GetAll())
+            //    //{
+            //    //    Console.WriteLine(color.ColorName);
+            //    //}
 
-            //Update
-            //var colorToUpdate = colorManager.GetById(4);
-            //colorToUpdate.ColorName = "Bordo";
-            //colorManager.Update(colorToUpdate);
-            //Console.WriteLine(colorManager.GetById(4).ColorName);
+            //    //Update
+            //    //var colorToUpdate = colorManager.GetById(4);
+            //    //colorToUpdate.ColorName = "Bordo";
+            //    //colorManager.Update(colorToUpdate);
+            //    //Console.WriteLine(colorManager.GetById(4).ColorName);
 
-            //Delete
-            //Color colorX = new Color() { ColorName = "Mor"};
-            //colorManager.Add(colorX);
-            //Console.WriteLine(colorX.ColorName + " eklendi."); //Tabloyu bozmamak için ekledik.
-            //foreach (var color in colorManager.GetAll())
-            //{
-            //    Console.WriteLine(color.ColorName);
-            //}
-            //colorManager.Delete(colorManager.GetById(10));
-            //Console.WriteLine("Silme Sonrası");
-            //foreach (var color in colorManager.GetAll())
-            //{
-            //    Console.WriteLine(color.ColorName);
-            //}
+            //    //Delete
+            //    //Color colorX = new Color() { ColorName = "Mor"};
+            //    //colorManager.Add(colorX);
+            //    //Console.WriteLine(colorX.ColorName + " eklendi."); //Tabloyu bozmamak için ekledik.
+            //    //foreach (var color in colorManager.GetAll())
+            //    //{
+            //    //    Console.WriteLine(color.ColorName);
+            //    //}
+            //    //colorManager.Delete(colorManager.GetById(10));
+            //    //Console.WriteLine("Silme Sonrası");
+            //    //foreach (var color in colorManager.GetAll())
+            //    //{
+            //    //    Console.WriteLine(color.ColorName);
+            //    //}
         }
         private static void BrandTest()
         {
             //GetAll
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll().Data;
+            foreach (var brand in result)
             {
                 Console.WriteLine(brand.BrandId + " " + brand.BrandName + " " + brand.Origin);
             }
