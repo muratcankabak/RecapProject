@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Entities.DTOs;
+using Core.Utilities.Abstract;
+using Core.Utilities.Concrete;
+using Business.Constants;
 
 namespace Business.Concrete
 {
@@ -18,42 +21,53 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.ModelName.Length > 1)
             {
-                if(car.DailyPrice > 0)
+                if (car.DailyPrice > 0)
                 {
                     _carDal.Add(car);
+                    return new SuccessResult(Messages.Success);
                 }
-                else Console.WriteLine("Aracın günlük fiyatı sıfırdan büyük olmalıdır.");  
+                else return new ErrorResult(Messages.Error);
             }
-            else Console.WriteLine("Model ismi en az iki karakter uzunluğunda olmalıdır.");
+            else return new ErrorResult(Messages.Error);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.Success);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.Success);
         }
 
-        public Car GetById(int carId)
+        public IDataResult<Car> GetById(int carId)
         {
-            return _carDal.Get(c=>c.CarId == carId);
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId), Messages.Success);
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.Success);
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
-            _carDal.Update(car);
+            if (car.ModelName.Length > 1)
+            {
+                if (car.DailyPrice > 0)
+                {
+                    _carDal.Update(car);
+                    return new SuccessResult(Messages.Success);
+                }
+                else return new ErrorResult(Messages.Error);
+            }
+            else return new ErrorResult(Messages.Error);
         }
     }
 }
