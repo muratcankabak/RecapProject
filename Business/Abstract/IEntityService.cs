@@ -1,11 +1,12 @@
-﻿using Core.Utilities.Abstract;
+﻿using Core.Entities;
+using Core.Utilities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IService<T>
+    public interface IEntityService<T> where T:class,IEntity,new()
     {
         IResult Add(T entity);
         IResult Delete(T entity);

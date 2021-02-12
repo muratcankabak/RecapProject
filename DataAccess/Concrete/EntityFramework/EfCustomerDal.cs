@@ -1,0 +1,36 @@
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
+using Entities.Concrete;
+using Entities.DTOs;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Text;
+using Core.Utilities.Abstract;
+using Core.Utilities.Concrete;
+
+namespace DataAccess.Concrete.EntityFramework
+{
+    public class EfCustomerDal : EfEntityRepositoryBase<Customer,RecapProjectDBContext>,ICustomerDal
+    {
+        public List<CustomerUserDto> GetCustomerDetails()
+        {
+            using (RecapProjectDBContext context = new RecapProjectDBContext())
+            {
+                var result = from c in context.Customers
+                             join u in context.Users
+                             on c.UserId equals u.UserId
+                             select new CustomerUserDto
+                             {
+                                 CompanyName = c.CompanyName,
+                                 FirstName = u.FirstName,
+                                 LastName = u.LastName,
+                                 Email = u.Email,
+                                 Password = u.Password
+                             };
+                return result.ToList();
+            }
+        }
+        
+    }
+}

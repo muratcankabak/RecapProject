@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -16,7 +17,54 @@ namespace ConsoleUI
             //BrandTest();
             //ColorTest();
             //CarTest();
-            CarsByDto();
+            //CarsByDto();
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //UserManager userManager = new UserManager(new EfUserDal());
+            RentalAddTest();
+
+            //UserTest(userManager);
+            //CustomerTest(customerManager);
+
+        }
+
+        private static void RentalAddTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            rentalManager.Add(new Rental { CarId = 10, CustomerId = 2, RentDate = new DateTime(2021, 02, 05), ReturnDate = new DateTime(2021, 02, 10) });
+        }
+
+        private static void CustomerTest(CustomerManager customerManager)
+        {
+            List<Customer> customers = new List<Customer>
+                {
+                new Customer{ UserId = 1, CompanyName = "ABC Yayın Evi" },
+                new Customer{ UserId = 2, CompanyName = "DEF Telekomünikasyon" },
+                new Customer{ UserId = 3, CompanyName = "XYZ Lojistik" },
+                };
+            foreach (var customer in customers)
+            {
+                customerManager.Add(customer);
+            }
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.UserId + " " + customer.CompanyName);
+            }
+        }
+
+        private static void UserTest(UserManager userManager)
+        {
+            
+            List<User> users = new List<User>
+                {
+                new User{ FirstName = "Oğuz", LastName = "Atay", Email = "o.a@abc.com", Password = "hashedpw1"},
+                new User{ FirstName = "Peyami", LastName = "Safa", Email = "p.s@abc.com", Password = "hashedpw2"},
+                new User{ FirstName = "Yusuf", LastName = "Atılgan", Email = "y.a@abc.com", Password = "hashedpw3"}
+                };
+            foreach (var user in users)
+            {
+                userManager.Add(user);
+            }
         }
 
         private static void CarsByDto()
@@ -72,14 +120,14 @@ namespace ConsoleUI
             //    //carManager.Delete(carManager.GetById(9));
         }
         private static void ColorTest()
-            {
-                //GetAll
-                ColorManager colorManager = new ColorManager(new EfColorDal());
+        {
+            //GetAll
+            ColorManager colorManager = new ColorManager(new EfColorDal());
             var result = colorManager.GetAll();
-                foreach (var color in result.Data)
-                {
-                    Console.WriteLine(color.ColorId + " " + color.ColorName);
-                }
+            foreach (var color in result.Data)
+            {
+                Console.WriteLine(color.ColorId + " " + color.ColorName);
+            }
 
             //    //GetById
 

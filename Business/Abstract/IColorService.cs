@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IColorService : IService<Color>
+    public interface IColorService : IEntityService<Color>
     {
                 
     }
