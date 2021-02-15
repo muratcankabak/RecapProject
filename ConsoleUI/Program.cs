@@ -16,11 +16,11 @@ namespace ConsoleUI
             // GetAll,GetById,Insert,Update,Delete
             //BrandTest();
             //ColorTest();
-            //CarTest();
+            CarTest();
             //CarsByDto();
             //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             //UserManager userManager = new UserManager(new EfUserDal());
-            RentalAddTest();
+            //RentalAddTest();
 
             //UserTest(userManager);
             //CustomerTest(customerManager);
