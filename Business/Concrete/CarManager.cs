@@ -10,6 +10,9 @@ using Entities.DTOs;
 using Core.Utilities.Abstract;
 using Core.Utilities.Concrete;
 using Business.Constants;
+using Core.CrossCuttingConcerns.Validation;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -20,19 +23,24 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.ModelName.Length > 1)
-            {
-                if (car.DailyPrice > 0)
-                {
-                    _carDal.Add(car);
-                    return new SuccessResult(Messages.Success);
-                }
-                else return new ErrorResult(Messages.Error);
-            }
-            else return new ErrorResult(Messages.Error);
+            //if (car.ModelName.Length > 1)
+            //{
+            //    if (car.DailyPrice > 0)
+            //    {
+            //        _carDal.Add(car);
+            //        return new SuccessResult(Messages.Success);
+            //    }
+            //    else return new ErrorResult(Messages.Error);
+            //}
+            //else return new ErrorResult(Messages.Error);
+
+            //ValidationTool.Validate(new CarValidator(),car);
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.Success);
         }
 
         public IResult Delete(Car car)
